@@ -237,11 +237,7 @@ public class FlutterLocalNotificationsPlugin implements MethodCallHandler, Plugi
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationDetails.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = getAlarmManager(context);
-        if (BooleanUtils.getValue(notificationDetails.allowWhileIdle)) {
-            AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, notificationDetails.millisecondsSinceEpoch, pendingIntent);
-        } else {
-            AlarmManagerCompat.setExact(alarmManager, AlarmManager.RTC_WAKEUP, notificationDetails.millisecondsSinceEpoch, pendingIntent);
-        }
+        AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, notificationDetails.millisecondsSinceEpoch, pendingIntent);
 
         if (updateScheduledNotificationsCache) {
             saveScheduledNotification(context, notificationDetails);
